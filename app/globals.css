@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-.imageBackground{
-  background-image: url("/images/business.jpg");
-  background-size: cover;
+.slide{
+  animation-name: slidein;
+  animation-duration: 1s;
+}
+
+@keyframes slidein {
+  from {
+    margin-right: -1000px;
+  }
+  to{
+    margin-right: 0;
+  }
 }

@@ -13,10 +13,7 @@ export const professionalFeatures :Feature[]=[
         title:"Data Insights",
         description:"Providers can gather data and analytics on customer issues, helping them identify recurring problems and improve their services."
     },
-    {
-        title:"Automation",
-        description:"Routine or frequently asked questions can be handled automatically through predefined responses or chatbots, saving time and resources."
-    },
+    
     {
         title:"Ticket Assignment",
         description:"Service providers can assign tickets to specific team members or departments based on their expertise, ensuring that the right people address customer issues."

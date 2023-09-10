@@ -1,11 +1,21 @@
+"use client"
 import { Feature } from '@/types'
+import { motion, useScroll } from "framer-motion"
 
-function SingleCustomerFeature({feature}:{feature:Feature}) {
+function SingleCustomerFeature({feature,index}:{feature:Feature,index:number}) {
+  const { scrollYProgress } = useScroll();
   return (
-    <div className="p-2 shadow-sm m-2 flex flex-col justify-start items-start">
-        <h4 className=" m-1 font-bold text-gray-700 ">{feature.title} </h4>
-        <p className='text-gray-800 text-sm'>{feature.description} </p>
-    </div>
+   <motion.div 
+   className="p-4 border-b border-b-blue-50  text-gray-500  m-2  rounded"
+   initial={{ opacity: 0 }}
+   whileInView={{ opacity: 1 }}
+   transition={{delay:.1*(index)}}
+  
+   viewport={{ once: true }}
+   >
+        <h4 className=" m-1 font-extrabold  ">{feature.title} </h4>
+        <p className="text-sm">{feature.description} </p>
+   </motion.div>
   )
 }
 

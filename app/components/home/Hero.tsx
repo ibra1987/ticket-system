@@ -1,7 +1,6 @@
 "use client"
-import { clear } from "console"
 
-import {useEffect,useLayoutEffect,useState} from "react"
+import {useEffect,useState} from "react"
 import Button from "../Button"
 
 type CallBackArguments = {
@@ -35,7 +34,7 @@ useEffect(()=>{
 if(!heading){
     renderTextWithDelay(customerHeader,0,"heading")
 
-   setIntro(heroSection)
+   
    renderTextWithDelay(headerResText,0,"subHeading")
 
 }
@@ -44,7 +43,7 @@ if(!heading){
 
 
 
-},[heading?.length])
+},[])
 
  function renderTextWithDelay(text:string,i:number=0,target:string){
     
@@ -53,25 +52,29 @@ if(!heading){
     if(i=== text.length-1){
         return;
     }
-   setTimeout(()=>{renderTextWithDelay(text,i+1,target)},50)
+   setTimeout(()=>{renderTextWithDelay(text,i+1,target)},80)
 
 
 }
-  return (
-    <div className="w-full lg:w-4/5 flex flex-col justify-start items-center  ">
-        {
-            heading && <>
-            <h2 className=" inline-block text-blue-400 font-extrabold text-5xl p-4">{heading} </h2>     
-            <h3 className="inline-block  text-black font-extrabold text-5xl p-4">{subHeading} </h3>
 
-           <p className="w-full lg:w-3/4 text-gray-500">{intro} </p>
-       <div>
-         <Button cssClass="w-48 text-center p-2 hover:bg-gray-200  transition duration-100 ease-in-out  bg-white border m-2" text="For Customers" handler={()=>null} type="button"/>
-         <Button cssClass="w-48 text-center p-2 bg-black hover:bg-gray-900 transition duration-100 text-white border m-2" text="For Professionals" handler={()=>null} type="button"/>
+  return (
+    <div
+     className= {`w-full lg:w-4/5 flex flex-col justify-start items-center`}
+    
+     >
+         <>
+            <h2 className=" inline-block  w-full text-blue-400 text-center font-extrabold text-3xl lg:text-5xl p-4">{heading} </h2>     
+            <h3 className="inline-block  text-black font-extrabold text-3xl lg:text-5xl p-4">{subHeading} </h3>
+
+          
+            <p className="w-full lg:w-3/4 text-gray-500">{heroSection} </p>
+       <div className="w-full flex justify-center">
+         <Button cssClass=" text-center p-3 bg-yellow-400 w-1/2 text-white  hover:bg-gray-200  transition duration-100 ease-in-out  bg-white border m-2" text="Learn more" handler={()=>null} type="button"/>
  
        </div>
+          
             </>
-       }
+       
     </div>
   )
 }
