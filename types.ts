@@ -1,3 +1,4 @@
+
 export type NavLink = {
     name:string,
     path:string
@@ -20,4 +21,30 @@ export type Testimonial={
     photo:string,
     body:string,
     source: 'PRO' | 'Client'
+}
+export enum AccountType  {
+    customer,
+    Professional
+
+}
+
+interface Account {
+
+    email:string,
+    password:string,
+    type:AccountType,
+    isPremium : boolean ,
+
+}
+
+export interface CustomerAccountFields extends Account {
+
+    name:string,
+    type:AccountType.customer,
+    tickets:Ticket[]
+    
+}
+
+export type Ticket = {
+    
 }
