@@ -5,8 +5,8 @@ import SignUpDForm from "./components/SignUpDForm"
 
 function SignUp() {
   return (
-    <div className="w-full flex jusc$$ items-center">
-          <SignUpDFormm/>
+    <div className="w-full flex justify-center items-center p-4">
+          <SignUpDForm/>
     </div>
   )
 }
