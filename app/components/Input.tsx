@@ -1,3 +1,4 @@
+"use client"
 import { ChangeEvent } from "react"
 
 type InputProps = {
@@ -8,7 +9,7 @@ type InputProps = {
     },
     value:string,
     placeholder:string,
-    type:string,
+    inputType:string,
     class:string,
     name?:string,
     checked?:boolean,
@@ -17,10 +18,20 @@ type InputProps = {
 }
 
 function Input(props:InputProps) {
+  
   return (
     <div className={props.containerClass}>
         {props.label && <label className={props.label.class}>{props.label.text}</label>}
-        <input name={props.name} checked={props.checked} type={props.type} className={props.class} value={props.value} placeholder={props.placeholder} onChange={props.onChange}/>
+        <input
+      
+        type={props.inputType}
+        name={props.name} 
+        checked={props.checked}
+        className={props.class} 
+        value={props.value}
+        placeholder={props.placeholder} 
+        onChange={props.onChange}
+        />
     </div>
   )
 }

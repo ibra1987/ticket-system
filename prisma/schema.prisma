@@ -9,3 +9,31 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum AccountType {
+  Customer
+  Professional
+}
+
+model ProfessionalUser {
+  id           String         @id @default(uuid())
+  name         String         @db.VarChar(50)
+  email        String         @unique @db.VarChar(99)
+  password     String         @db.min(8)
+  organization String?        @unique
+  collaborator Collaborator[]
+}
+
+model Collaborator {
+  id             String           @id @default(uuid())
+  name           String           @db.VarChar(50)
+  email          String?          @unique @db.VarChar(99)
+  organization   ProfessionalUser @relation(fields: [organizationId], references: [id])
+  organizationId String
+}
+
+model CustomerUser {
+  id    String @id @default(uuid())
+  name  String @db.VarChar(50)
+  email String @db.VarChar(99)
+}

@@ -79,3 +79,33 @@ export type TicketMessage = {
 }
 
 type Permissions = "All" | "Edit" | "Delete" | "Respond" | "Read"
+
+
+export interface AccountField {
+    value: string;
+    type: string;
+    placeholder?: string;
+  }
+  
+  // Now, define your NewProfessionalAccountFields and NewCustomerAccountFields types
+  export interface NewProfessionalAccountFields {
+    name: AccountField;
+    email: AccountField;
+    password: AccountField;
+    passwordConfirmation: AccountField;
+    Organization: AccountField;
+    Category: AccountField;
+  }
+  
+  export interface NewCustomerAccountFields {
+    name: AccountField;
+    email: AccountField;
+    password: AccountField;
+    passwordConfirmation: AccountField;
+  }
+
+  export 
+  type FormErrorType = {
+    errorMessages: string[];
+    path: string;
+  };
