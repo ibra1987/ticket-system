@@ -10,30 +10,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum AccountType {
-  Customer
-  Professional
+model User {
+  id            String         @id @default(uuid())
+  name          String         @db.VarChar(50)
+  email         String         @unique
+  password      String
+  organizations Organization[]
 }
 
-model ProfessionalUser {
-  id           String         @id @default(uuid())
-  name         String         @db.VarChar(50)
-  email        String         @unique @db.VarChar(99)
-  password     String         @db.min(8)
-  organization String?        @unique
-  collaborator Collaborator[]
+model Organization {
+  id            String         @id @default(uuid())
+  name          String         @db.VarChar(99)
+  description   String         @db.VarChar(250)
+  category      String
+  collaborators Collaborator[]
+  tickets       Ticket[]
+  user          User           @relation(fields: [userId], references: [id])
+  userId        String @unique
 }
 
 model Collaborator {
-  id             String           @id @default(uuid())
-  name           String           @db.VarChar(50)
-  email          String?          @unique @db.VarChar(99)
-  organization   ProfessionalUser @relation(fields: [organizationId], references: [id])
-  organizationId String
+  id            String         @id @default(uuid())
+  name String
+  userName  String @unique
+  email String? @unique
+  organizations Organization[]
+  tickets       Ticket[]
 }
 
-model CustomerUser {
-  id    String @id @default(uuid())
-  name  String @db.VarChar(50)
-  email String @db.VarChar(99)
+model Ticket {
+  id String @id @default(uuid())
+  title String @db.VarChar(99)
+  mainMessage String 
+  attachements String[]
+  organization Organization @relation(fields: [organizationId],references: [id])
+  organizationId String @unique
+  messages Message[]
+  collaborators Collaborator[]
+}
+
+model Message {
+  id String @id @default(uuid())
+  title String @db.VarChar(99)
+  body String 
+  attachement String
+  ticket Ticket @relation(fields: [ticketId],references: [id])
+  ticketId String @unique
 }
