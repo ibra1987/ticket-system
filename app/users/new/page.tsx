@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
-import SignUpDForm from "./components/SignUpDForm"
-
+import AccountRem from "./components/AccountRem";
+import SignUpDForm from "./components/SignUpDForm";
 
 function SignUp() {
   return (
-    <div className="w-full flex justify-center items-center p-4">
-          <SignUpDForm/>
+    <div className="w-full flex flex-col justify-center items-center p-4">
+      <SignUpDForm />
+      <AccountRem />
     </div>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

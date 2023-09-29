@@ -15,7 +15,8 @@ model User {
   name          String         @db.VarChar(50)
   email         String         @unique
   password      String
-  organizations Organization[]
+  isVerified    Boolean
+  organizations Organization[] 
 }
 
 model Organization {
