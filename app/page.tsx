@@ -21,7 +21,7 @@ export default function Home() {
         <h2 className="w-full text-5xl text-center font-extrabold p-10 mb-6 text-gray-800">
           Benefits as a customer
         </h2>
-        <div className="flex flex-col lg:flex-row w-full  lg:w-4/5 justify-center items-center   p-6 mb-10">
+        <div className="flex flex-col lg:flex-row w-full bg-gray-100  lg:w-4/5 justify-center items-center   p-6 mb-10">
           <div className="lg:w-full w-1/2 p-2 border rounded bg-white ">
             <Image
               alt="happy_customer"

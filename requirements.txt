@@ -3,6 +3,10 @@
 1. User Authentication:
 
 User registration and login functionality.
+  -> user registration:
+      -> signup form :done 
+      -> email activation link: done
+      ->TODO resend email with new activation link 
 Different user roles (e.g., admin, agent, customer) with appropriate permissions.
 2. Ticket Creation:
 

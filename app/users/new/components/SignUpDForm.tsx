@@ -8,14 +8,21 @@ import vaildateFormFields from "@/functions/vaildateFormFields";
 import { FormErrorType, NewUser } from "@/types";
 import { FormEvent, useState } from "react";
 import userRequests from "@/httpRequests/userRequests";
+import Link from "next/link";
+import getFormValidationError from "@/functions/getFormValidationError";
 
 function SignUpDForm() {
+  const [successMessage, setSuccessMessage] = useState({
+    value: false,
+    message: "",
+  });
   const [validationErrors, setValidationErrors] = useState<
     FormErrorType[] | undefined
   >([]);
   const [newUser, setNewUser] = useState<NewUser>(emptyUserFields);
   const [loading, setLoadingState] = useState<boolean>(false);
 
+  // on Input change
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = e.target.name;
 
@@ -34,6 +41,7 @@ function SignUpDForm() {
     }));
   };
 
+  // on form submission
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoadingState(true);
@@ -50,10 +58,15 @@ function SignUpDForm() {
     try {
       const response = await userRequests.createAccount(newUser);
       if (response.data.success) {
+        setNewUser(emptyUserFields);
+        setSuccessMessage({
+          value: true,
+          message: `Account created successfuly, Please check your email to activate it.`,
+        });
       }
     } catch (error: any) {
       const errMessage =
-        error.response.data.customError || "Oops! something went wrong!";
+        error.response?.data?.customError || "Oops! something went wrong!";
       setValidationErrors([{ errorMessages: [errMessage], path: "general" }]);
     } finally {
       setLoadingState(false);
@@ -61,13 +74,6 @@ function SignUpDForm() {
   };
 
   // return the error message for a specific field refered as path
-  const getErrorMessages = (path: string) => {
-    const errorMessages = validationErrors?.find(
-      (error: FormErrorType) => error.path === path
-    )?.errorMessages;
-
-    return errorMessages;
-  };
 
   return (
     <form
@@ -77,8 +83,25 @@ function SignUpDForm() {
       <h1 className="w-full text-2xl text-center m-4 font-extrabold text-gray-600">
         Create a free account
       </h1>
+      {/* Succes Message  */}
+      {successMessage.value && (
+        <div className="bg-green-100  border border-green-200 text-sm text-green-600 w-full text-left p-2 relative ">
+          <button
+            onClick={() =>
+              setSuccessMessage({
+                value: false,
+                message: "",
+              })
+            }
+            className="p-2 border border-green-300 w-2 h-2 flex justify-center items-center  rounded-full text-green-500 absolute hover:border-red-400 top-2 right-2 transition duration-200"
+          >
+            X
+          </button>
+          {successMessage.message}
+        </div>
+      )}
       {/* non field specific errors  */}
-      {getErrorMessages("general") && (
+      {getFormValidationError("general", validationErrors) && (
         <div className="bg-red-50 border border-red-100 text-red-400 w-full text-left p-2 relative ">
           <button
             onClick={() => setValidationErrors([])}
@@ -86,7 +109,7 @@ function SignUpDForm() {
           >
             X
           </button>
-          {getErrorMessages("general")}
+          {getFormValidationError("general", validationErrors)}
         </div>
       )}
 
@@ -95,7 +118,8 @@ function SignUpDForm() {
           <Input
             inputType={newUser[field as keyof NewUser].type}
             class={
-              getErrorMessages(field) && getErrorMessages(field)!.length
+              getFormValidationError(field, validationErrors) &&
+              getFormValidationError(field, validationErrors)!.length
                 ? " p-2 w-full   outline-none focus:border-2 focus:border-blue-300 rounded border-2 border-red-500"
                 : " p-2 w-full border-2  outline-none focus:border-2 focus:border-blue-300 rounded "
             }
@@ -108,7 +132,9 @@ function SignUpDForm() {
 
           {/*display field specific error messages */}
           {validationErrors && validationErrors?.length > 0 && (
-            <ErrorContainer errorMessages={getErrorMessages(field)!} />
+            <ErrorContainer
+              errorMessages={getFormValidationError(field, validationErrors)!}
+            />
           )}
         </div>
       ))}

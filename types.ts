@@ -98,3 +98,19 @@ export type FormErrorType = {
   errorMessages: string[];
   path: string;
 };
+
+export type EmailRecipent = {
+  email: string;
+  name: string;
+};
+
+export type EmailOptions = {
+  from: {
+    email: string;
+    name: string;
+  };
+  to: EmailRecipent[];
+  subject: string;
+  html: string;
+  text?: string;
+};
