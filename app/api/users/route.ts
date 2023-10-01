@@ -69,7 +69,7 @@ export async function POST(request: Request) {
 
     //create  a token
 
-    const token = await generateToken(returnedUser.id, "1m");
+    const token = await generateToken(returnedUser.id, "1h");
     if (!token) {
       throw new Error("Could  not generate a token for email verificattion ");
     }
@@ -83,12 +83,11 @@ export async function POST(request: Request) {
         email: "no-reply@imagebgremover.io",
         name: "Ticketify Team",
       },
-      to: [
-        {
-          email: returnedUser.email,
-          name: returnedUser.name,
-        },
-      ],
+      to: {
+        email: returnedUser.email,
+        name: returnedUser.name,
+      },
+
       subject: "Ticketify- Account Activation ",
       html: `<p>Hello, ${returnedUser.name}, please activate your account <a href='${emailink}'
        target='_blank'> from here </a>  to start using our services</p>`,
@@ -107,7 +106,7 @@ export async function POST(request: Request) {
       {
         success: false,
         customError:
-          error?.body?.message || error.response?.data.error || error?.message,
+          error?.body?.message || error.response?.data?.error || error?.message,
       },
       {
         status: error?.status || error.body?.statusCode || 500,

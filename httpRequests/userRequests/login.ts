@@ -1,11 +1,11 @@
 import axios from "axios";
-import { NewUser } from "@/types";
+import { NewUser, UserToLogin } from "@/types";
 const USERS_URL = process.env.USERS_URL!;
 
 //Create a new User
 
-export default async function loginAccount(newUser: NewUser) {
-  const response = await axios.post(USERS_URL, newUser, {
+export default async function loginAccount(newUser: UserToLogin) {
+  const response = await axios.post(USERS_URL + "/login", newUser, {
     headers: {
       "Content-Type": "application/json",
     },

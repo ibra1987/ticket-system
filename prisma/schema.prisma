@@ -49,6 +49,15 @@ model Ticket {
   organizationId String @unique
   messages Message[]
   collaborators Collaborator[]
+  status TicketStatus
+}
+
+enum TicketStatus  {
+    
+    open
+    rejected
+    closed
+    inProgress
 }
 
 model Message {

@@ -31,6 +31,6 @@ export default async function validateToken(token: string) {
   } catch (error: any) {
     console.error(error.message);
   } finally {
-    await client!.$disconnect();
+    await client?.$disconnect();
   }
 }

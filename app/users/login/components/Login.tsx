@@ -5,13 +5,9 @@ import Input from "@/app/components/Input";
 import getFormValidationError from "@/functions/getFormValidationError";
 import vaildateFormFields from "@/functions/vaildateFormFields";
 import userRequests from "@/httpRequests/userRequests";
-import { FormErrorType, FormInputAttr, User } from "@/types";
+import { FormErrorType, FormInputAttr, User, UserToLogin } from "@/types";
 import { useState } from "react";
 
-type UserToLogin = {
-  email: FormInputAttr;
-  password: FormInputAttr;
-};
 function Login() {
   const [validationErrors, setValidationErrors] = useState<FormErrorType[]>([]);
   const [loadingState, setLoadingState] = useState(false);
@@ -76,9 +72,8 @@ function Login() {
         });
       }
     } catch (error: any) {
-      const errMessage =
-        error.response?.data?.customError || "Oops! something went wrong!";
-      setValidationErrors([{ errorMessages: [errMessage], path: "general" }]);
+      const errMessages = error.response?.data?.errors;
+      setValidationErrors([{ errorMessages: errMessages, path: "general" }]);
     } finally {
       setLoadingState(false);
     }

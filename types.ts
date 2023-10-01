@@ -109,8 +109,13 @@ export type EmailOptions = {
     email: string;
     name: string;
   };
-  to: EmailRecipent[];
+  to: EmailRecipent;
   subject: string;
   html: string;
   text?: string;
+};
+
+export type UserToLogin = {
+  email: FormInputAttr;
+  password: FormInputAttr;
 };
